@@ -1270,8 +1270,8 @@ packages:
   requires_python: '>=3.10'
 - pypi: ./
   name: snakemake-scheduler-plugin-milp
-  version: 0.1.1
-  sha256: d4ce78e9a1accdf0baf59dd32930f3dedd81326fbf9196e669a14e6b38076036
+  version: 0.1.0
+  sha256: e06ad0c7c8344b909a7475d86b9a1347a3586a9196a767b618afba172968563d
   requires_dist:
   - snakemake>=9.17,<10
   - snakemake-interface-common>=1.23.0,<2

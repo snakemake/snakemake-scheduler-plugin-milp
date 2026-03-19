@@ -180,15 +180,19 @@ class Scheduler(SchedulerBase):
         )
 
         # Constraints:
-        for name in available_resources:
+        for name, limit in available_resources.items():
+            if not isinstance(limit, int):
+                self.logger.warning(f"Resource {name} in not INT: {limit}")
+                continue
             prob += (
                 lpSum(
                     [
                         scheduled_jobs[job] * job.scheduler_resources.get(name, 0)
                         for job in selectable_jobs
+                        if isinstance(job.scheduler_resources.get(name, 0), int)
                     ]
                 )
-                <= available_resources[name]
+                <= limit
             )
 
         # Choose jobs that lead to "fastest" (minimum steps) removal of existing temp file

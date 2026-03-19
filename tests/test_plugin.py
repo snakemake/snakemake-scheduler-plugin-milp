@@ -6,7 +6,7 @@ from snakemake_interface_scheduler_plugins.tests import TestSchedulerBase
 from snakemake_scheduler_plugin_milp import Scheduler, SchedulerSettings
 
 
-class MilpScheduler(TestSchedulerBase):
+class TestMilpScheduler(TestSchedulerBase):
     # This ensures that the tests from the base class are executed.
     # Set to False if you want to implement intermediate base classes.
     __test__ = True
