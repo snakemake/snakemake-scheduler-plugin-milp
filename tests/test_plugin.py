@@ -6,7 +6,7 @@ from snakemake_interface_scheduler_plugins.tests import TestSchedulerBase
 from snakemake_scheduler_plugin_milp import Scheduler, SchedulerSettings
 
 
-class TestGreedyScheduler(TestSchedulerBase):
+class MilpScheduler(TestSchedulerBase):
     # This ensures that the tests from the base class are executed.
     # Set to False if you want to implement intermediate base classes.
     __test__ = True
@@ -19,7 +19,8 @@ class TestGreedyScheduler(TestSchedulerBase):
         # Return the SchedulerSettings instance you want to test.
         # Note that you can put here multiple classes inheriting from TestSchedulerBase
         # or from each other to test different settings.
-        assert self.lp_solver_available()
-        return SchedulerSettings(
-            solver="lp_solvers",
+        sched_settings = SchedulerSettings(
+            solver="PULP_CBC_CMD",
         )
+        assert sched_settings.lp_solver_available, "solver binary not available"
+        return sched_settings
