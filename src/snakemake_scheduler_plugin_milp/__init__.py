@@ -236,30 +236,31 @@ class Scheduler(SchedulerBase):
             if math.isclose(variable.value(), 1.0)
         ]
 
-        if not selected_jobs:
-            # No selected jobs. This could be due to insufficient resources or a failure in the ILP solver
-            # Hence, we silently fall back to the greedy solver to make sure that we don't miss anything.
-            return None
-
         return selected_jobs
 
     def _solve_ilp(self, prob, threads=2, time_limit=10):
         import pulp
 
-        old_path = os.environ["PATH"]
+        old_path = os.environ.get("PATH", "")
         if self.settings.solver_path is not None:
             # Temporarily prepend the given snakemake env to the path, such that the solver can be found in any case.
             # This is needed for cluster envs, where the cluster job might have a different environment but
             # still needs access to the solver binary.
-            os.environ["PATH"] = "{}:{}".format(
-                self.settings.solver_path,
-                os.environ["PATH"],
+            os.environ["PATH"] = (
+                "{}{}{}".format(
+                    self.settings.solver_path,
+                    os.pathsep,
+                    old_path,
+                )
+                if old_path
+                else str(self.settings.solver_path)
             )
+
         try:
             solver = pulp.getSolver(self.settings.solver)
+            solver.optionsDict["threads"] = threads
+            solver.timeLimit = time_limit
+            solver.msg = False  # Suppress solver output
+            return prob.solve(solver)
         finally:
             os.environ["PATH"] = old_path
-        solver.optionsDict["threads"] = threads
-        solver.timeLimit = time_limit
-        solver.msg = False  # Suppress solver output
-        return prob.solve(solver)
