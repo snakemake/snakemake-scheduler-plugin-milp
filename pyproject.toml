@@ -6,16 +6,16 @@ version = "0.1.0"
 
 authors = [
   { name = "Johannes Köster", email = "johannes.koester@uni-due.de" },
-  { name = "Filipe G. Vieira"},
+  { name = "Filipe G. Vieira" },
 ]
 maintainers = [
   { name = "Johannes Köster", email = "johannes.koester@uni-due.de" },
-  { name = "Filipe G. Vieira"},
+  { name = "Filipe G. Vieira" },
 ]
-description = "A greedy Snakemake scheduler plugin."
+description = "A Snakemake scheduler plugin using Mixed-Integer Linear Programming (MILP)."
 readme = "README.md"
 license = "MIT"
-keywords = ["snakemake", "plugin", "scheduler", "greedy"]
+keywords = ["snakemake", "plugin", "scheduler", "ilp", "milp", "mixed-integer linear programming"]
 
 [build-system]
 build-backend = "hatchling.build"
@@ -25,8 +25,8 @@ requires = [ "hatchling",]
 dev = [ "ruff", "coverage", "pytest", "twine", "build",]
 
 [project.urls]
-Repository = "https://github.com/snakemake/snakemake-scheduler-plugin-greedy"
-Documentation = "https://snakemake.github.io/snakemake-plugin-catalog/plugins/scheduler/greedy.html"
+Repository = "https://github.com/snakemake/snakemake-scheduler-plugin-milp"
+Documentation = "https://snakemake.github.io/snakemake-plugin-catalog/plugins/scheduler/milp.html"
 
 [tool.pixi.workspace]
 channels = [ "conda-forge",]
